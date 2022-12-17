@@ -1,0 +1,17 @@
+<div class="user_view">
+<h1 class="welcome">Welcome To The Recipe App</h1>
+ <% User.all.each do |user| %>
+        <div class="card m-3">
+        <div class="card-header">
+            <%= user.name %>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title"> Role: <%= user.role %></h5>
+            <p class="card-text"> Email: <%= user.email %></p>
+            <%= link_to user do %>
+            <button type="button" class="btn btn-primary">View User Details</button>
+            <% end %>
+        </div>
+        </div>
+    <% end %> 
+</div>

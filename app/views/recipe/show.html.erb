@@ -1,0 +1,48 @@
+<h1 class="text-center margin-buttom"><%= @recipe.name%> <%= @recipe.id%> </h1>
+<div>
+  <div class="d-flex justify-content-around">
+  <div>
+   <p>preparation_time: <%= @recipe.preparation_time%>
+  <p>cooking_time: <%= @recipe.cooking_time%></p>
+  </div>
+    <div class="d-flex justify-content-start">
+      <div class="d-flex flex-column">
+        <h3 style="color: green; font-weight: 800"><%= @recipe.name%></h3>
+        <h4>Public: <%= @recipe.public_recipe%></h4>
+            <p>description: <%= @recipe.description%></p>
+      </div>
+    </div>
+  </div>
+  <div class="d-flex justify-content-start" style="margin-left: 18rem">
+<button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+    Generate shopping list
+</button>
+  </div>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Generating Shopping List</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+    <%= form_with  url: shopping_list_path, method: :post, local: true, scope: :@shopping do |f| %>
+    <div class="form-group">
+    <%= f.collection_select(:inventory_id, Inventory.all, :id, :name,class: "form-control form-control-lg" ) %>
+        <div class="submit-btn">
+             <%= f.submit "Generate", class: "btn btn-primary btn-lg btn-block m-1"  %>
+        </div>
+    </div>
+    <% end %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <%= render template: "recipes_food/index"  %>
+</div>

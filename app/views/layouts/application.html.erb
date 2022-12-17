@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>RecipeApp</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+ <% if alert %>
+    <div class="alert alert-danger">
+      <%= alert%>
+    </div>
+    <% end %>
+    <% if notice %>
+    <div class="alert alert-success">
+      <%= notice%>
+    </div>
+    <% end %>
+  <nav class="navbar p-3" style="background-color: #e3f2fd;">
+      <% if user_signed_in? %>
+      <p >Logged in as <strong style="color: Green">(<%= current_user.name %>)</strong>.</p>
+      <a href="/" class="nav-link">Home</a>
+      <%= link_to 'Inventories', user_inventory_index_path(current_user.id), class: "nav-link " %>
+      <%= link_to 'Recipes', user_recipe_index_path(current_user.id), class: "nav-link " %>
+      <%= link_to 'Food', user_food_index_path(current_user.id), class: "nav-link " %>
+      <%= link_to 'Public recipes', public_recipes_path, class: "nav-link " %>
+      <%= link_to 'shopping list', shopping_list_path, class: "nav-link " %>
+      <%= link_to 'Edit profile', edit_user_registration_path, class: "nav-link " %> 
+      <%= button_to 'logout', destroy_user_session_path, data: {turbo: false}, method: :delete, class: "btn btn-danger" %>
+      <% end %>
+  </nav>
+
+    <%= yield %>
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+
+  </body>
+</html>

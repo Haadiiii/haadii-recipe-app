@@ -1,0 +1,30 @@
+<div class="new-food-container container justify-content-center d-flex flex-column ">
+  <h1 class="create-title">Add A New Recipe</h1>
+  <%= form_with model: Recipe, url: user_recipe_index_path(user_id: current_user.id) do |form| %>
+    <div class="form-group">
+      <div class="form-outline mb-4">
+        <%= form.label :name%>
+        <%= form.text_field :name, placeholder: "name",  class: "form-control form-control-lg" %><br>
+      </div>
+      <div class="form-outline mb-4">
+        <%= form.label :preparation_time %>
+        <%= form.text_area :preparation_time, placeholder: "How long does it take to prepare", class: "form-control form-control-lg"  %> <br />
+      </div>
+      <div class="form-outline mb-4">
+        <%= form.label :cooking_time %>
+        <%= form.text_area :cooking_time, placeholder: "How long does it", class: "form-control form-control-lg"%>
+      </div>
+      <br />
+      <div class="submit-btn">
+      <p>Description: (not less than 150 words)</p>
+        <%= form.text_area :description, placeholder: "Describe how to cook it", class: "form-control form-control-lg" %>
+      </div>
+      <br>
+      <%= form.label :public_recipe %>
+      <%= form.check_box :public_recipe %><br />
+      <div class="submit-btn">
+        <%=form.submit "Add Recipe", data: {turbo: false},  class: "btn btn-primary btn-lg btn-block" %>
+      </div>
+    </div>
+  <% end %>
+</div>

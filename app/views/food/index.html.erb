@@ -1,0 +1,33 @@
+<div class="food-view">
+<h1 class="welcome text-center">Welcome to the Foods Page</h1>
+<div class="d-flex justify-content-end m-3">
+<%= link_to 'Add Food', new_user_food_path(current_user.id), class: "btn btn-dark" %>
+</div>
+
+<table class="table table-striped m-3 p-3">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Food</th>
+      <th scope="col">Measurement Unit</th>
+      <th scope="col">Unit Price</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% Food.all.each do |food| %>
+        <tr>
+            <th scope="row"><%= food.id %></th>
+            <td><%= food.name %></td>
+            <td><%= food.measurement_unit %></td>
+            <td>$ <%= food.price %></td>
+            <td>
+            <% if can? :manage, food %>
+            <%= button_to "Delete", user_food_path(current_user.id, food.id), data: {turbo: false}, method: :delete, class: "btn btn-danger" %>
+            <% end %>
+            </td>
+        </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>

@@ -1,0 +1,23 @@
+<div class="food-view">
+  <div class="d-flex justify-content-end " style="margin-right: 10rem; margin-top: 5rem">
+    <%= link_to 'Add Inventory', new_user_inventory_path(current_user.id), class: "btn btn-dark p-3" %>
+  </div>
+  <% Inventory.all.each do |inv| %>
+    <div class="card mb-3 style-card" style="max-width: 750px; padding-left:30px; margin-left: 30rem">
+      <div class="row g-0">
+        <div class="col-md-4 d-flex flex-column">
+          <%= link_to user_inventory_path(current_user.id, inv.id) do %>
+           <h2> <%= inv.name %> </h2>
+          <% end %>
+        </div>
+        <div class="card-body">
+          <p class="card-text"> <%= inv.description %></p>
+          <% if can? :manage, inv %>
+            <%= button_to "Delete", user_inventory_path(current_user.id, inv.id) , data: {turbo: false}, method: :delete, class: "btn btn-danger" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+</div>

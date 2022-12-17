@@ -1,0 +1,13 @@
+<div class="user_view">
+<h1 class="welcome">Welcome <%= @user.name %>. </h1>
+<div class="card" style="width: 18rem;">
+  <div class="card-header">
+   Here are <%= @user.name %> Details:
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item"><%= @user.name %></li>
+    <li class="list-group-item"><%= @user.email %></li>
+    <li class="list-group-item"><%= @user.role %></li>
+  </ul>
+  </div>
+</div>

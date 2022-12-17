@@ -1,0 +1,30 @@
+<div class="food-view">
+<div class="d-flex justify-content-end me-5 p-2">
+<%= link_to 'Add Food', new_user_inventory_inventory_food_path(current_user.id, @inventory.id), class: "btn btn-dark p-3" %>
+</div>
+<hr>
+<table class=" table table-striped table-bordered table-hover text-center" style="width: 90rem; margin-left: 5rem; margin-top: 3rem">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Food</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% InventoryFood.all.each do |infood| %>
+        <tr>
+            <th scope="row"><%= infood.id %></th>
+            <td><%= infood.food.name %></td>
+            <td><%= infood.quantity %></td>
+            <td>
+            <% if can? :manage, infood %>
+            <%= button_to "Delete", user_inventory_inventory_food_path(current_user.id, @inventory.id, infood.id), data: {turbo: false}, method: :delete, class: "btn btn-danger" %>
+            <% end %>
+            </td>
+        </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>

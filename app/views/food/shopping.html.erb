@@ -1,0 +1,47 @@
+<div class="container my-5">
+  <h1 class="text-center">Shopping List </h1>
+  <div class="d-flex justify-content-between mb-3">
+    <div class="d-flex justify-content-end">
+    </div>
+  </div>
+  <table class="table table-sm table-striped table-bordered border-dark ">
+    <tr>
+      <th> #</th>
+      <th> Food Item </th>
+      <th> Quantity </th>
+      <th> Price </th>
+      <th> Total </th>
+    </tr>
+    <% @foods.each do |food| %>
+      <% food.recipes_foods.each do |recipe| %>
+        <% food.inventory_foods.each do |inven| %>
+          <% if recipe.quantity < inven.quantity.to_i || recipe.quantity > inven.quantity.to_i %>
+            <div class="d-flex justify-content-between">
+              <div>
+                <h4> Food needed ID: <%= food.name.length %> </h4>
+                <h2> food needed: <%= food.name %> </h2>
+                <h2> Total: <%= @total = "$#{food.price * (recipe.quantity - inven.quantity.to_i )}" %> </h2>
+              </div>
+              <div class="d-grid justify-content-end">
+                <div>
+                  <h1>        <%=  link_to recipe.recipe.name, user_recipe_index_path(user_id: current_user.id), style: "font-weight: bold; font-size: 32px; padding-top: 10px;" %>
+                  </h1>
+                </div>
+                <div>
+                  <h1>       <%= link_to inven.inventory.name, user_inventory_index_path(user_id: current_user.id) %></h1>
+                </div>
+              </div>
+            </div>
+            <tr>
+              <td> <%= food.id  %> </td>
+              <td> <%= food.name %> </td>
+              <td> <%= recipe.quantity - inven.quantity.to_i %> </td>
+              <td> <%=  "$#{food.price}"%> </td>
+              <td> <%= @total = "$#{food.price * (recipe.quantity - inven.quantity.to_i )}" %> </td>
+            </tr>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </table>
+</div>

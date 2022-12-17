@@ -1,0 +1,45 @@
+<div class=" d-flex justify-content-end" style="margin-right: 25rem; margin-bottom: 2rem">
+  <% if can? :manage, @recipe %>
+    <%= form_with model:@recipe, url:user_recipe_recipes_food_path(current_user.id, @recipe.id), html:{method: :put} do |f| %>
+        <div class="form-check form-switch" id="recipe_public">
+              <label class="form-check-label" for="recipe_public">Public Recipe</label>
+          <%= f.check_box :public_recipe, class:"form-check-input", onchange: "this.form.submit()" %>
+        </div>
+    <% end %>
+  <% end %>
+</div>
+<div class="d-flex justify-content-end" style="margin-right: 25rem">
+<%= link_to "Add Ingredient",   new_user_recipe_recipes_food_path(current_user.id, @recipe.id), class: "btn btn-dark p-3"  %>
+</div>
+<table class="table table-striped table-bordered table-hover text-center " style="width: 90rem; margin-left: 10rem; margin-top: 3rem">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Food</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Value</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% Food.all.each do |r| %>
+      <tr>
+        <% r.recipes_foods.each do |rf| %>
+          <th scope="row"><%= r.id %></th>
+          <td><%= r.name %></td>
+          <td><%= rf.quantity%></td>
+          <td>$ <%= r.price %></td>
+          <td>
+          <div class="d-flex justify-content-around">
+               <% if can? :manage, r %>
+              <%= button_to "Modify", user_food_index_path(current_user.id), data: {turbo: false}, method: :update, class: "btn btn-primary" %>
+              <%= button_to "Delete", user_recipe_recipes_food_path(current_user.id, @recipe.id, rf.id), data: {turbo: false}, method: :delete, class: "btn btn-danger" %>
+            <% end %>
+          </div>
+
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
