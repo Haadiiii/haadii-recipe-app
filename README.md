@@ -87,7 +87,7 @@ In order to run this project you need:
 
 Clone this repository to your desired folder:
 
-> `git clone git@github.com:David-Kasilia/blog_app_ror.git `
+> `git@github.com:Haadiiii/haadii-recipe-app.git`
 
 ### Install
 
